@@ -94,26 +94,38 @@ public class Player extends MovableCharacter {
             keyHandler.leftPressed || keyHandler.rightPressed) {
 
             if(keyHandler.upPressed) {
-                y -= speed;
+                if(gamePanel.map.map[y-speed][x].walkable) {
+                    y -= speed;
+                }
+
                 direction = Direction.UP;
                 previousDirection = Direction.UP;
             } else if(keyHandler.downPressed) {
-                y += speed;
+                if(gamePanel.map.map[y+speed][x].walkable) {
+                    y += speed;
+                }
+
                 direction = Direction.DOWN;
                 previousDirection = Direction.DOWN;
             } else if(keyHandler.leftPressed) {
-                x -= speed;
+                if(gamePanel.map.map[y][x-speed].walkable) {
+                    x -= speed;
+                }
+
                 direction = Direction.LEFT;
                 previousDirection = Direction.LEFT;
             } else if(keyHandler.rightPressed) {
-                x += speed;
+                if(gamePanel.map.map[y][x+speed].walkable) {
+                    x += speed;
+                }
+
                 direction = Direction.RIGHT;
                 previousDirection = Direction.RIGHT;
             }
 
             spriteCounter++;
 
-            if(spriteCounter>15) {
+            if(spriteCounter>10) {
                 if(spriteNumber==1) {
                     spriteNumber = 2;
                 } else if(spriteNumber==2) {
@@ -124,6 +136,12 @@ public class Player extends MovableCharacter {
             }
         } else {
             direction = Direction.NULL;
+
+			if(spriteNumber==1) {
+				spriteNumber = 2;
+			} else if(spriteNumber==2) {
+				spriteNumber = 1;
+			}
         }
     }
 }

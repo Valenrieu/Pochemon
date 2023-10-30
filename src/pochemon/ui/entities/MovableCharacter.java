@@ -27,13 +27,13 @@ public abstract class MovableCharacter extends Entity {
         super.getImages(name);
 
         try {
-            up = ImageIO.read(new FileInputStream("res/sprites/"+name+"_up.png"));
-            up1 = ImageIO.read(new FileInputStream("res/sprites/"+name+"_up1.png"));
-            down = ImageIO.read(new FileInputStream("res/sprites/"+name+"_down.png"));
-            down1 = ImageIO.read(new FileInputStream("res/sprites/"+name+"_down1.png"));
+            up = ImageIO.read(new FileInputStream("../res/sprites/"+name+"_up.png"));
+            up1 = ImageIO.read(new FileInputStream("../res/sprites/"+name+"_up1.png"));
+            down = ImageIO.read(new FileInputStream("../res/sprites/"+name+"_down.png"));
+            down1 = ImageIO.read(new FileInputStream("../res/sprites/"+name+"_down1.png"));
 
-            left = ImageIO.read(new FileInputStream("res/sprites/"+name+"_left.png"));
-            right = ImageIO.read(new FileInputStream("res/sprites/"+name+"_right.png"));
+            left = ImageIO.read(new FileInputStream("../res/sprites/"+name+"_left.png"));
+            right = ImageIO.read(new FileInputStream("../res/sprites/"+name+"_right.png"));
         } catch(IOException e) {
             System.out.println("res folder was altered.");
             System.exit(1);

@@ -1,3 +1,3 @@
-set CLASSPATH=bin
-dir bin
+cd bin
+set CLASSPATH=.
 java pochemon.Main

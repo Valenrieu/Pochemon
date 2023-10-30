@@ -11,17 +11,17 @@ public class GamePanel extends JPanel implements Runnable {
     public final int scale = 3;
 
     public final int tileSize = originalTileSize*scale;
-    public final int maxScreenCol = 21; // Choisir des nombres impairs
-    public final int maxScreenRow = 15;
+    public final int maxScreenCol = 17; // Choisir des nombres impairs
+    public final int maxScreenRow = 13;
     public final int screenWidth = tileSize*maxScreenCol;
     public final int screenHeight = tileSize*maxScreenRow;
 
-    public final int FPS = 60;
+    public final int FPS = 30;
 
     Thread gameThread;
     KeyHandler keyHandler = new KeyHandler();
     public Player player = new Player(this, keyHandler);
-    Map map = new Map(this);
+    public Map map = new Map(this);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
