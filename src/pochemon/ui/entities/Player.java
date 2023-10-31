@@ -159,8 +159,10 @@ public class Player extends MovableCharacter {
 
         if(keyHandler.spacePressed) {
             for(int i=0; i<gamePanel.map.dressers.length; i++) {
-                if(gamePanel.map.dressers[i].getX()+1 == x || gamePanel.map.dressers[i].getX()-1 == x ||
-                   gamePanel.map.dressers[i].getY()+1 == y || gamePanel.map.dressers[i].getY()-1 ==y) {
+                if(gamePanel.map.dressers[i].getX()+1 == x && gamePanel.map.dressers[i].getY() == y ||
+                   gamePanel.map.dressers[i].getX()-1 == x && gamePanel.map.dressers[i].getY() == y ||
+                   gamePanel.map.dressers[i].getY()+1 == y && gamePanel.map.dressers[i].getX() == x ||
+                   gamePanel.map.dressers[i].getY()-1 == y && gamePanel.map.dressers[i].getX() == x) {
 
                     if(gamePanel.map.dressers[i] instanceof Talkable) {
                         gamePanel.map.dressers[i].talk(this);
