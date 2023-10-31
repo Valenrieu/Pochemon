@@ -2,33 +2,33 @@ package pochemon;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.imageio.*;
+import java.io.*;
+import java.awt.image.BufferedImage;
 
-import pochemon.ui.entities.Player;
-import pochemon.ui.map.Map;
+public class BattlePanel extends JPanel implements Runnable {
+    public static final int screenHeight = GamePanel.screenHeight;
+    public static final int screenWidth = (int)(1.2*GamePanel.screenWidth);
+    private static final int FPS = 30;
+    private final BufferedImage backgroundImage;
+    private static Thread gameThread;
 
-public class GamePanel extends JPanel implements Runnable {
-    public static final int originalTileSize = 16;
-    public static final int scale = 3;
+    public BattlePanel() {
+        BufferedImage image = null;
 
-    public static final int tileSize = originalTileSize*scale;
-    public static final int maxScreenCol = 17; // Choisir des nombres impairs
-    public static final int maxScreenRow = 13;
-    public static final int screenWidth = tileSize*maxScreenCol;
-    public static final int screenHeight = tileSize*maxScreenRow;
-
-    public static final int FPS = 30;
-
-    Thread gameThread;
-    KeyHandler keyHandler = new KeyHandler();
-    public Player player = new Player(this, keyHandler);
-    public Map map = new Map(this);
-
-    public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
-        this.addKeyListener(keyHandler);
         this.setFocusable(true);
+
+        try {
+            image = ImageIO.read(new FileInputStream("../res/sprites/arena_background.png"));
+        } catch(IOException e) {
+            System.out.println("res folder was altered.");
+            System.exit(1);
+        }
+
+        backgroundImage = image;
     }
 
     public void startGameThread() {
@@ -65,13 +65,11 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        player.update();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        map.draw(g2);
-        player.draw(g2);
+        g2.drawImage(backgroundImage, 0, 0, screenWidth, screenHeight, null);
     }
 }

@@ -6,6 +6,7 @@ import java.io.*;
 import java.awt.image.BufferedImage;
 
 import pochemon.ui.map.Map;
+import pochemon.battle.Battle;
 
 public class Dresser extends StaticCharacter implements Talkable {
     public final String name;
@@ -25,6 +26,6 @@ public class Dresser extends StaticCharacter implements Talkable {
     }
 
     public void talk(Player player) {
-        System.out.println("toto");
+        Battle battle = new Battle(player, this);
     }
 }
