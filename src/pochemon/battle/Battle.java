@@ -42,13 +42,13 @@ public class Battle {
 
     public void startAnimation(Graphics2D g) {
         BufferedImage ryanGosling = null;
-        BufferedImage oponnentImage = null;
+        BufferedImage opponentImage = null;
         BufferedImage VSLogo = null;
 
         try {
             // Je n'ai pas reussi a trouver d'images interessantes.
             ryanGosling = ImageIO.read(new FileInputStream("../res/sprites/ryan_gosling_cereal.png"));
-            oponnentImage = ImageIO.read(new FileInputStream("../res/sprites/oponnent_standing_down.png"));
+            opponentImage = ImageIO.read(new FileInputStream("../res/sprites/opponent_standing_down.png"));
             VSLogo = ImageIO.read(new FileInputStream("../res/sprites/vs_logo.png"));
         } catch(IOException e) {
             System.out.println("res folder was altered.");
@@ -62,6 +62,6 @@ public class Battle {
 
         g.drawImage(ryanGosling, 0, middleY, xSize, ySize, null);
         g.drawImage(VSLogo, middleX, middleY, xSize, ySize, null);
-        g.drawImage(oponnentImage, BattlePanel.screenWidth-xSize, middleY, xSize, ySize, null);
+        g.drawImage(opponentImage, BattlePanel.screenWidth-xSize, middleY, xSize, ySize, null);
     }
 }
