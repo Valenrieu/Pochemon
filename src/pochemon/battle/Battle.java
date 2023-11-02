@@ -6,17 +6,17 @@ import javax.imageio.*;
 import java.io.*;
 import java.awt.image.BufferedImage;
 
-import pochemon.ui.entities.Player;
-import pochemon.ui.entities.Dresser;
+import pochemon.openworld.entities.Player;
+import pochemon.openworld.entities.Trainer;
 import pochemon.BattlePanel;
 
 public class Battle {
     private JDialog window;
     private BattlePanel battlePanel;
     private Player player;
-    private Dresser opponent;
+    private Trainer opponent;
 
-    public Battle(Player player, Dresser opponent) {
+    public Battle(Player player, Trainer opponent) {
         this.player = player;
         this.opponent = opponent;
         this.loadWindow();
@@ -42,13 +42,13 @@ public class Battle {
 
     public void startAnimation(Graphics2D g) {
         BufferedImage ryanGosling = null;
-        BufferedImage obiwan = null;
+        BufferedImage oponnentImage = null;
         BufferedImage VSLogo = null;
 
         try {
             // Je n'ai pas reussi a trouver d'images interessantes.
             ryanGosling = ImageIO.read(new FileInputStream("../res/sprites/ryan_gosling_cereal.png"));
-            obiwan = ImageIO.read(new FileInputStream("../res/sprites/obiwan.png"));
+            oponnentImage = ImageIO.read(new FileInputStream("../res/sprites/oponnent_standing_down.png"));
             VSLogo = ImageIO.read(new FileInputStream("../res/sprites/vs_logo.png"));
         } catch(IOException e) {
             System.out.println("res folder was altered.");
@@ -62,6 +62,6 @@ public class Battle {
 
         g.drawImage(ryanGosling, 0, middleY, xSize, ySize, null);
         g.drawImage(VSLogo, middleX, middleY, xSize, ySize, null);
-        g.drawImage(obiwan, BattlePanel.screenWidth-xSize, middleY, xSize, ySize, null);
+        g.drawImage(oponnentImage, BattlePanel.screenWidth-xSize, middleY, xSize, ySize, null);
     }
 }

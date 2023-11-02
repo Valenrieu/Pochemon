@@ -3,8 +3,8 @@ package pochemon;
 import java.awt.*;
 import javax.swing.*;
 
-import pochemon.ui.entities.Player;
-import pochemon.ui.map.Map;
+import pochemon.openworld.entities.Player;
+import pochemon.openworld.map.Map;
 
 public class GamePanel extends JPanel implements Runnable {
     public static final int originalTileSize = 16;

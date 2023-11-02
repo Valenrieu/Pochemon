@@ -1,4 +1,4 @@
-package pochemon.ui.map;
+package pochemon.openworld.map;
 
 import java.awt.*;
 import javax.imageio.*;
@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.Scanner;
 
 import pochemon.GamePanel;
-import pochemon.ui.entities.*;
+import pochemon.openworld.entities.*;
 
 public class Map {
     public GamePanel gamePanel;
@@ -15,26 +15,26 @@ public class Map {
     public static final Tile[][] map = new Tile[69][69]; // A modifier en fonction
                                                        // de la taille par defaut
                                                        // des maps.
-    public static final Dresser[] dressers = new Dresser[4];
+    public static final Trainer[] trainers = new Trainer[4];
 
     public Map(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         loadTiles();
         loadMap();
-        loadDressers();
+        loadTrainers();
     }
 
-    private void loadDressers() {
-        dressers[0] = new Dresser(39, 58, "Christian", Direction.LEFT, this);
+    private void loadTrainers() {
+        trainers[0] = new Trainer(39, 58, "Christian", Direction.LEFT, this);
         map[58][39] = tiles[5];
 
-        dressers[1] = new Dresser(48, 56, "Bruce", Direction.DOWN, this);
+        trainers[1] = new Trainer(48, 56, "Bruce", Direction.DOWN, this);
         map[56][48] = tiles[5];
 
-        dressers[2] = new Dresser(23, 21, "Giovanni", Direction.DOWN, this);
+        trainers[2] = new Trainer(23, 21, "Giovanni", Direction.DOWN, this);
         map[21][23] = tiles[4];
 
-        dressers[3] = new Dresser(13, 31, "Sacha", Direction.RIGHT, this);
+        trainers[3] = new Trainer(13, 31, "Sacha", Direction.RIGHT, this);
         map[31][13] = tiles[5];
     }
 
@@ -113,9 +113,9 @@ public class Map {
 
                 g.drawImage(sprite, i, j, gamePanel.tileSize, gamePanel.tileSize, null);
 
-                for(int k=0; k<dressers.length; k++) {
-                    if(dressers[k].getX()==mapCol && dressers[k].getY()==mapRow) {
-                        dressers[k].draw(g);
+                for(int k=0; k<trainers.length; k++) {
+                    if(trainers[k].getX()==mapCol && trainers[k].getY()==mapRow) {
+                        trainers[k].draw(g);
                     }
                 }
             }

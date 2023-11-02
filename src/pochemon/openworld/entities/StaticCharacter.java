@@ -1,11 +1,11 @@
-package pochemon.ui.entities;
+package pochemon.openworld.entities;
 
 import java.awt.*;
 import javax.imageio.*;
 import java.io.*;
 import java.awt.image.BufferedImage;
 
-import pochemon.ui.map.Map;
+import pochemon.openworld.map.Map;
 
 public abstract class StaticCharacter extends Entity {
     protected Map map;

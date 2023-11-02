@@ -1,4 +1,4 @@
-package pochemon.ui.entities;
+package pochemon.openworld.entities;
 
 import java.awt.*;
 import javax.imageio.*;

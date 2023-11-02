@@ -1,4 +1,4 @@
-package pochemon.ui.entities;
+package pochemon.openworld.entities;
 
 import java.awt.*;
 import javax.imageio.*;
@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 import pochemon.GamePanel;
 import pochemon.KeyHandler;
-import pochemon.ui.entities.Talkable;
+import pochemon.openworld.entities.Talkable;
 
 public class Player extends MovableCharacter {
     GamePanel gamePanel;
@@ -158,14 +158,14 @@ public class Player extends MovableCharacter {
         follower.update();
 
         if(keyHandler.spacePressed) {
-            for(int i=0; i<gamePanel.map.dressers.length; i++) {
-                if(gamePanel.map.dressers[i].getX()+1 == x && gamePanel.map.dressers[i].getY() == y ||
-                   gamePanel.map.dressers[i].getX()-1 == x && gamePanel.map.dressers[i].getY() == y ||
-                   gamePanel.map.dressers[i].getY()+1 == y && gamePanel.map.dressers[i].getX() == x ||
-                   gamePanel.map.dressers[i].getY()-1 == y && gamePanel.map.dressers[i].getX() == x) {
+            for(int i=0; i<gamePanel.map.trainers.length; i++) {
+                if(gamePanel.map.trainers[i].getX()+1 == x && gamePanel.map.trainers[i].getY() == y ||
+                   gamePanel.map.trainers[i].getX()-1 == x && gamePanel.map.trainers[i].getY() == y ||
+                   gamePanel.map.trainers[i].getY()+1 == y && gamePanel.map.trainers[i].getX() == x ||
+                   gamePanel.map.trainers[i].getY()-1 == y && gamePanel.map.trainers[i].getX() == x) {
 
-                    if(gamePanel.map.dressers[i] instanceof Talkable) {
-                        gamePanel.map.dressers[i].talk(this);
+                    if(gamePanel.map.trainers[i] instanceof Talkable) {
+                        gamePanel.map.trainers[i].talk(this);
                     }
                 }
             }

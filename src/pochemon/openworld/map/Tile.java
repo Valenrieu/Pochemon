@@ -1,4 +1,4 @@
-package pochemon.ui.map;
+package pochemon.openworld.map;
 
 import java.awt.image.BufferedImage;
 

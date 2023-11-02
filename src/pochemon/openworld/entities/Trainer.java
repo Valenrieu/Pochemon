@@ -1,17 +1,17 @@
-package pochemon.ui.entities;
+package pochemon.openworld.entities;
 
 import java.awt.*;
 import javax.imageio.*;
 import java.io.*;
 import java.awt.image.BufferedImage;
 
-import pochemon.ui.map.Map;
+import pochemon.openworld.map.Map;
 import pochemon.battle.Battle;
 
-public class Dresser extends StaticCharacter implements Talkable {
+public class Trainer extends StaticCharacter implements Talkable {
     public final String name;
 
-    public Dresser(int x, int y, String name, Direction direction, Map map) {
+    public Trainer(int x, int y, String name, Direction direction, Map map) {
         super(map);
         this.x = x;
         this.y = y;
