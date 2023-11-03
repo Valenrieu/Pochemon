@@ -12,6 +12,7 @@ public class BattlePanel extends JPanel implements Runnable {
     public static final int screenHeight = (int)(0.6*GamePanel.screenHeight);
     public static final int screenWidth = (int)(0.6*GamePanel.screenWidth);
     public final BufferedImage backgroundImage;
+    private Thread gameThread;
     Battle battle;
 
     public BattlePanel() {
@@ -21,6 +22,7 @@ public class BattlePanel extends JPanel implements Runnable {
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.setFocusable(true);
+        this.setIgnoreRepaint(true);
 
         try {
             image = ImageIO.read(new FileInputStream("../res/sprites/arena_background.png"));
@@ -32,17 +34,25 @@ public class BattlePanel extends JPanel implements Runnable {
         backgroundImage = image;
     }
 
+    public void startGameThread() {
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
     public void addBattle(Battle battle) {
         this.battle = battle;
     }
 
     public void run() {
-        this.repaint();
+        while(gameThread!=null) {
+            this.repaint();
+        }
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        battle.startBattle(g2);
+
+        battle.draw(g2);
     }
 }

@@ -5,12 +5,15 @@ import java.awt.Graphics2D;
 import java.util.Random;
 
 import pochemon.BattlePanel;
+import static pochemon.battle.utils.StatsFunctions.level;
+import static pochemon.battle.utils.StatsFunctions.experience;
+import static pochemon.battle.utils.StatsFunctions.maxHP;
+import static pochemon.battle.utils.StatsFunctions.getXp;
 
 public abstract class Pochemon {
     public final String name;
     protected int HP, maxHP, attack, defense, lvl, experience;
     public final BufferedImage frontSprite, backSprite;
-    protected static Random damageMultiplier = new Random();
 
     Pochemon(String name, int attack, int defense, BufferedImage frontSprite, BufferedImage backSprite) {
         this.name = name;
@@ -20,9 +23,21 @@ public abstract class Pochemon {
         this.backSprite = backSprite;
 
         lvl = 5;
-        experience = 0;
-        maxHP = (int)Math.floor(0.01*(30 + Math.floor(0.25*lvl))) + lvl + 10;
+        experience = experience(lvl);
+        maxHP = maxHP(lvl);
         HP = maxHP;
+    }
+
+    public void heal() {
+        HP = maxHP;
+    }
+
+    public void addExperience(int opponentLvl) {
+        experience = getXp(opponentLvl);
+    }
+
+    public void levelUp() {
+        lvl = level(experience);
     }
 
     public boolean isAlive() {
@@ -41,7 +56,7 @@ public abstract class Pochemon {
         return lvl;
     }
 
-    public void attack(Pochemon pochemon) {
+    public final void attack(Pochemon pochemon) {
         try {
             pochemon.HP -= this.getDamages(pochemon);
 
@@ -55,9 +70,9 @@ public abstract class Pochemon {
 
     public void draw(Graphics2D g2, boolean back) {
         if(back) {
-            g2.drawImage(backSprite, 50, 250, 150, 150, null);   
+            g2.drawImage(backSprite, 60, 250, 125, 125, null);   
         } else {
-            g2.drawImage(frontSprite, 275, 100, 150, 150, null);
+            g2.drawImage(frontSprite, 290, 100, 125, 125, null);
         }
     }
 
