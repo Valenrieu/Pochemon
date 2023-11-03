@@ -8,10 +8,10 @@ import java.awt.image.BufferedImage;
 
 import pochemon.battle.Battle;
 
-public class BattlePanel extends JPanel {
-    public static final int screenHeight = GamePanel.screenHeight;
-    public static final int screenWidth = (int)(1.2*GamePanel.screenWidth);
-    private final BufferedImage backgroundImage;
+public class BattlePanel extends JPanel implements Runnable {
+    public static final int screenHeight = (int)(0.6*GamePanel.screenHeight);
+    public static final int screenWidth = (int)(0.6*GamePanel.screenWidth);
+    public final BufferedImage backgroundImage;
     Battle battle;
 
     public BattlePanel() {
@@ -36,17 +36,13 @@ public class BattlePanel extends JPanel {
         this.battle = battle;
     }
 
+    public void run() {
+        this.repaint();
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        g2.drawImage(backgroundImage, 0, 0, screenWidth, screenHeight, null);
-        battle.startAnimation(g2);
-
-        try {
-            Thread.sleep(2000);
-            //g2.drawImage(backgroundImage, 0, 0, screenWidth, screenHeight, null);
-        } catch(InterruptedException e) {
-            e.printStackTrace();
-        }
+        battle.startBattle(g2);
     }
 }

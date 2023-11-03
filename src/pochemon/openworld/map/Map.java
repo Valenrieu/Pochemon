@@ -8,9 +8,11 @@ import java.util.Scanner;
 
 import pochemon.GamePanel;
 import pochemon.openworld.entities.*;
+import pochemon.battle.objects.entities.*;
 
 public class Map {
     public GamePanel gamePanel;
+    public final PochemonList pochemonList = new PochemonList();
     public static final Tile[] tiles = new Tile[6];
     public static final Tile[][] map = new Tile[69][69]; // A modifier en fonction
                                                        // de la taille par defaut
@@ -25,16 +27,16 @@ public class Map {
     }
 
     private void loadTrainers() {
-        trainers[0] = new Trainer(39, 58, "Christian", Direction.LEFT, this);
+        trainers[0] = new Trainer(39, 58, "Christian", Direction.LEFT, pochemonList.list[1], this);
         map[58][39] = tiles[5];
 
-        trainers[1] = new Trainer(48, 56, "Bruce", Direction.DOWN, this);
+        trainers[1] = new Trainer(48, 56, "Bruce", Direction.DOWN, pochemonList.list[2], this);
         map[56][48] = tiles[5];
 
-        trainers[2] = new Trainer(23, 21, "Giovanni", Direction.DOWN, this);
+        trainers[2] = new Trainer(23, 21, "Giovanni", Direction.DOWN, pochemonList.list[3], this);
         map[21][23] = tiles[4];
 
-        trainers[3] = new Trainer(13, 31, "Sacha", Direction.RIGHT, this);
+        trainers[3] = new Trainer(13, 31, "Sacha", Direction.RIGHT, pochemonList.list[4], this);
         map[31][13] = tiles[5];
     }
 

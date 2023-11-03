@@ -22,13 +22,31 @@ public class Battle {
         this.loadWindow();
     }
 
+    public void startBattle(Graphics2D g2) {
+        startAnimation(g2);
+        g2.drawImage(battlePanel.backgroundImage, 0, 0, battlePanel.screenWidth, battlePanel.screenHeight, null);
+        player.pochemon.draw(g2, true);
+        opponent.pochemon.draw(g2, false);
+        /*while(player.pochemon.isAlive() && opponent.pochemon.isAlive()) {
+            player.pochemon.attack(opponent.pochemon);
+            opponent.pochemon.animate(g2, battlePanel.backgroundImage, battlePanel.screenWidth, battlePanel.screenHeight, false);
+
+            if(!opponent.pochemon.isAlive()) {
+                break;
+            }
+            
+            opponent.pochemon.attack(player.pochemon);
+            player.pochemon.animate(g2, battlePanel.backgroundImage, battlePanel.screenWidth, battlePanel.screenHeight, true);
+        }*/
+    }
+
     private void loadWindow() {
         JDialog window = new JDialog();
         window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("Combat : Joueur vs "+opponent.name);
 
-        BattlePanel battlePanel = new BattlePanel();
+        battlePanel = new BattlePanel();
         battlePanel.addBattle(this);
         window.add(battlePanel);
         window.pack();
@@ -40,10 +58,12 @@ public class Battle {
         window.setVisible(true);
     }
 
-    public void startAnimation(Graphics2D g) {
+    public void startAnimation(Graphics2D g2) {
         BufferedImage ryanGosling = null;
         BufferedImage opponentImage = null;
         BufferedImage VSLogo = null;
+
+        g2.drawImage(battlePanel.backgroundImage, 0, 0, battlePanel.screenWidth, battlePanel.screenHeight, null);
 
         try {
             // Je n'ai pas reussi a trouver d'images interessantes.
@@ -55,13 +75,19 @@ public class Battle {
             System.exit(1);
         }
 
-        int xSize = 200;
-        int ySize = 200;
+        int xSize = 150;
+        int ySize = 150;
         int middleY = (int)(BattlePanel.screenHeight/2 - ySize/2);
         int middleX = (int)(BattlePanel.screenWidth/2 - xSize/2);
 
-        g.drawImage(ryanGosling, 0, middleY, xSize, ySize, null);
-        g.drawImage(VSLogo, middleX, middleY, xSize, ySize, null);
-        g.drawImage(opponentImage, BattlePanel.screenWidth-xSize, middleY, xSize, ySize, null);
+        g2.drawImage(ryanGosling, 0, middleY, xSize, ySize, null);
+        g2.drawImage(VSLogo, middleX, middleY, xSize, ySize, null);
+        g2.drawImage(opponentImage, BattlePanel.screenWidth-xSize, middleY, xSize, ySize, null);
+    
+        try {
+            Thread.sleep(5000);
+        } catch(InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

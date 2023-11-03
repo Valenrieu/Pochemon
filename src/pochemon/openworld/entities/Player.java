@@ -8,16 +8,19 @@ import java.awt.image.BufferedImage;
 import pochemon.GamePanel;
 import pochemon.KeyHandler;
 import pochemon.openworld.entities.Talkable;
+import pochemon.battle.objects.entities.Pochemon;
 
 public class Player extends MovableCharacter {
+    public final Pochemon pochemon;
     GamePanel gamePanel;
     KeyHandler keyHandler;
     private Follower follower;
     int previousX, previousY;
 
-    public Player(GamePanel gamePanel, KeyHandler keyHandler) {
+    public Player(Pochemon pochemon, GamePanel gamePanel, KeyHandler keyHandler) {
         super(1); // vitesse
 
+        this.pochemon = pochemon;
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
         x = 27;

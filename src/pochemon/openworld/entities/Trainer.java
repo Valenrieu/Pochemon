@@ -7,15 +7,18 @@ import java.awt.image.BufferedImage;
 
 import pochemon.openworld.map.Map;
 import pochemon.battle.Battle;
+import pochemon.battle.objects.entities.Pochemon;
 
 public class Trainer extends StaticCharacter implements Talkable {
     public final String name;
+    public final Pochemon pochemon;
 
-    public Trainer(int x, int y, String name, Direction direction, Map map) {
+    public Trainer(int x, int y, String name, Direction direction, Pochemon pochemon, Map map) {
         super(map);
         this.x = x;
         this.y = y;
         this.name = name;
+        this.pochemon = pochemon;
         this.direction = direction;
 
         this.getImages("opponent");

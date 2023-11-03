@@ -20,8 +20,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     Thread gameThread;
     KeyHandler keyHandler = new KeyHandler();
-    public Player player = new Player(this, keyHandler);
     public Map map = new Map(this);
+    public Player player = new Player(map.pochemonList.list[0], this, keyHandler);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
