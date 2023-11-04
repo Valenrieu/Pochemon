@@ -28,6 +28,19 @@ public abstract class Pochemon {
         HP = maxHP;
     }
 
+    Pochemon(String name, int attack, int defense, BufferedImage frontSprite, BufferedImage backSprite, int lvl) {
+        this.name = name;
+        this.attack = attack;
+        this.defense = defense;
+        this.frontSprite = frontSprite;
+        this.backSprite = backSprite;
+
+        this.lvl = lvl;
+        experience = experience(lvl);
+        maxHP = maxHP(lvl);
+        HP = maxHP;
+    }
+
     public void heal() {
         HP = maxHP;
     }

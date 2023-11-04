@@ -23,12 +23,15 @@ public class GamePanel extends JPanel implements Runnable {
     public Map map = new Map(this);
     public Player player = new Player(map.pochemonList.list[0], this, keyHandler);
 
+    private BackgroundMusic music = new BackgroundMusic("schubert-liszt-serenade");
+
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+        music.loop();
     }
 
     public void startGameThread() {

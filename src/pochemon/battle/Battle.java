@@ -6,6 +6,7 @@ import javax.imageio.*;
 import java.io.*;
 import java.awt.image.BufferedImage;
 
+import pochemon.openworld.entities.Entity;
 import pochemon.openworld.entities.Player;
 import pochemon.openworld.entities.Trainer;
 import pochemon.battle.objects.entities.Pochemon;
@@ -23,13 +24,56 @@ public class Battle {
     private BufferedImage opponentImage = null;
     private BufferedImage VSLogo = null;
     private final long beginningTime;
+    private long lastAttack;
+    private int previousAttack = 1; // 0 pour joueur, 1 pour adversaire
+    private Entity winner = null;
 
     public Battle(Player player, Trainer opponent) {
         this.player = player;
         this.opponent = opponent;
         beginningTime = System.currentTimeMillis();
+        lastAttack = System.currentTimeMillis();
         this.loadImages();
         this.loadWindow();
+    }
+
+    public void updateBattle() {
+        if(System.currentTimeMillis()-beginningTime < 4000) {
+            return;
+        } else if(System.currentTimeMillis()-lastAttack < 3000) {
+            // Pause de 3 secondes entre chaque attaque.
+            return;
+        }
+
+        if(previousAttack==1) {
+            previousAttack = 0;
+            player.pochemon.attack(opponent.pochemon);
+
+            if(!opponent.pochemon.isAlive()) {
+                winner = player;
+                player.pochemon.heal();
+                opponent.pochemon.heal();
+
+                player.pochemon.addExperience(opponent.pochemon.getLvl());
+                player.pochemon.levelUp();
+            }
+        } else {
+            previousAttack = 1;
+            opponent.pochemon.attack(player.pochemon);
+
+            if(!player.pochemon.isAlive()) {
+                winner = opponent;
+                player.pochemon.heal();
+                opponent.pochemon.heal();
+                // Pas d'experience gagnee si l'adversaire gagne.
+            }
+        }
+
+        lastAttack = System.currentTimeMillis();
+
+        if(winner!=null) {
+            doSomething();
+        }
     }
 
     public void draw(Graphics2D g2) {
@@ -48,16 +92,6 @@ public class Battle {
         this.addLabel(g2, 275, battlePanel.screenHeight-80, 215, 80);
         this.writePochemonInfos(g2, opponent.pochemon, true);
         this.writePochemonInfos(g2, player.pochemon, false);
-
-        while(player.pochemon.isAlive() && opponent.pochemon.isAlive()) {
-            player.pochemon.attack(opponent.pochemon);
-
-            if(!opponent.pochemon.isAlive()) {
-                break;
-            }
-            
-            opponent.pochemon.attack(player.pochemon);
-        }
     }
 
     private void addLabel(Graphics2D g2, int x, int y, int width, int height) {
@@ -68,6 +102,7 @@ public class Battle {
     private void writePochemonInfos(Graphics2D g2, Pochemon pochemon, boolean isOpponent) {
         int fontSize = 11;
         String type = "";
+        String HPStatus = pochemon.getHP()+" / "+pochemon.getMaxHP()+" PV";
         g2.setColor(Color.BLACK);
         g2.setFont(new Font("Arial", 1, fontSize));        
 
@@ -82,9 +117,11 @@ public class Battle {
         if(isOpponent) {
             g2.drawString(pochemon.name, 1, fontSize);
             g2.drawString(type, 1, 2*fontSize);
+            g2.drawString(HPStatus, 1, 3*fontSize);
         } else {
             g2.drawString(pochemon.name, 276, battlePanel.screenHeight-80+fontSize);
             g2.drawString(type, 276, battlePanel.screenHeight-80+2*fontSize);
+            g2.drawString(HPStatus, 276, battlePanel.screenHeight-80+3*fontSize);
         }
     }
 

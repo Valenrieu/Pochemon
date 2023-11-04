@@ -46,6 +46,7 @@ public class BattlePanel extends JPanel implements Runnable {
     public void run() {
         while(gameThread!=null) {
             this.repaint();
+            battle.updateBattle();
         }
     }
 

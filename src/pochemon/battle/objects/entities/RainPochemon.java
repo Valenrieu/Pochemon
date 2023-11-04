@@ -9,6 +9,10 @@ public class RainPochemon extends Pochemon {
         super(name, attack, defense, frontSprite, backSprite);
     }
 
+    public RainPochemon(String name, int attack, int defense, BufferedImage frontSprite, BufferedImage backSprite, int lvl) {
+        super(name, attack, defense, frontSprite, backSprite, lvl);
+    }
+
     int getDamages(Pochemon pochemon) throws UnknownTypeException {
         if(pochemon instanceof RainPochemon) {
             return damages(this.lvl, this.attack, this.defense, 1);
