@@ -45,7 +45,7 @@ public class Battle {
             return;
         }
 
-        if(previousAttack==1) {
+        if(previousAttack==1 && winner==null) {
             previousAttack = 0;
             player.pochemon.attack(opponent.pochemon);
 
@@ -57,7 +57,7 @@ public class Battle {
                 player.pochemon.addExperience(opponent.pochemon.getLvl());
                 player.pochemon.levelUp();
             }
-        } else {
+        } else if(previousAttack==0 && winner==null) {
             previousAttack = 1;
             opponent.pochemon.attack(player.pochemon);
 
@@ -70,17 +70,17 @@ public class Battle {
         }
 
         lastAttack = System.currentTimeMillis();
-
-        if(winner!=null) {
-            doSomething();
-        }
     }
 
     public void draw(Graphics2D g2) {
         if(System.currentTimeMillis()-beginningTime < 4000) {
             this.startAnimation(g2);
         } else {
-            this.drawBattle(g2);
+            if(winner==null) {
+                this.drawBattle(g2);
+            } else {
+                this.drawWinner(g2);
+            }
         }
     }
 
@@ -88,8 +88,8 @@ public class Battle {
         g2.drawImage(battlePanel.backgroundImage, 0, 0, battlePanel.screenWidth, battlePanel.screenHeight, null);
         player.pochemon.draw(g2, true);
         opponent.pochemon.draw(g2, false);
-        this.addLabel(g2, 0, 0, 215, 80);
-        this.addLabel(g2, 275, battlePanel.screenHeight-80, 215, 80);
+        this.addLabel(g2, 0, 0, 215, 4*12 + 2);
+        this.addLabel(g2, 275, battlePanel.screenHeight-(4*12 + 2), 215, 4*12 + 2);
         this.writePochemonInfos(g2, opponent.pochemon, true);
         this.writePochemonInfos(g2, player.pochemon, false);
     }
@@ -100,11 +100,14 @@ public class Battle {
     }
 
     private void writePochemonInfos(Graphics2D g2, Pochemon pochemon, boolean isOpponent) {
-        int fontSize = 11;
+        int fontSize = 12;
         String type = "";
+        String name = pochemon.name;
+        String lvl = Integer.toString(pochemon.getLvl());
         String HPStatus = pochemon.getHP()+" / "+pochemon.getMaxHP()+" PV";
+        String xp = pochemon.getExperience()+" XP";
         g2.setColor(Color.BLACK);
-        g2.setFont(new Font("Arial", 1, fontSize));        
+        g2.setFont(new Font("Arial", 1, fontSize));
 
         if(pochemon instanceof HeatPochemon) {
             type = "Type chaleur";
@@ -114,15 +117,57 @@ public class Battle {
             type = "Type pluie";
         }
 
+        // Pour aligner le niveau a droite
+
+        do {
+            name += " ";
+
+            if(((name.length()+lvl.length())*12)-2==215) {
+                name += lvl;
+                break;
+            }
+        } while(true);
+
         if(isOpponent) {
-            g2.drawString(pochemon.name, 1, fontSize);
+            g2.drawString(name, 1, fontSize);
             g2.drawString(type, 1, 2*fontSize);
             g2.drawString(HPStatus, 1, 3*fontSize);
+            g2.drawString(xp, 1, 4*fontSize);
         } else {
-            g2.drawString(pochemon.name, 276, battlePanel.screenHeight-80+fontSize);
-            g2.drawString(type, 276, battlePanel.screenHeight-80+2*fontSize);
-            g2.drawString(HPStatus, 276, battlePanel.screenHeight-80+3*fontSize);
+            g2.drawString(name, 276, battlePanel.screenHeight-(fontSize*4 + 2)+fontSize);
+            g2.drawString(type, 276, battlePanel.screenHeight-(fontSize*4 + 2)+2*fontSize);
+            g2.drawString(HPStatus, 276, battlePanel.screenHeight-(fontSize*4 + 2)+3*fontSize);
+            g2.drawString(xp, 276, battlePanel.screenHeight-(fontSize*4 + 2)+4*fontSize);
         }
+    }
+
+    private void drawWinner(Graphics2D g2) {
+        int fontSize = 60, imageSize = 150;
+        String message = "";
+        BufferedImage image = null;
+        int x, y;
+        int middleX, middleY;
+        window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        if(winner instanceof Player) {
+            message = "Joueur a gagne";
+            image = ryanGosling;
+        } else {
+            message = opponent.name+" a gagne";
+            image = opponentImage;
+        }
+
+        x = (int)(battlePanel.screenWidth - message.length()*fontSize);
+        y = (int)(battlePanel.screenHeight/3 - fontSize);
+        middleY = (int)(BattlePanel.screenHeight/2 - imageSize/2);
+        middleX = (int)(BattlePanel.screenWidth/2 - imageSize/2);
+
+        g2.drawImage(battlePanel.backgroundImage, 0, 0, battlePanel.screenWidth, battlePanel.screenHeight, null);
+        this.addLabel(g2, 0, 0, battlePanel.screenWidth, battlePanel.screenHeight/3);
+        g2.setColor(Color.BLACK);
+        g2.setFont(new Font("Arial", 1, fontSize));
+        g2.drawString(message, x, y);
+        g2.drawImage(image, middleX, middleY+25, imageSize, imageSize, null);
     }
 
     private void loadImages() {
@@ -138,7 +183,7 @@ public class Battle {
     }
 
     private void loadWindow() {
-        JDialog window = new JDialog();
+        window = new JDialog();
         window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("Combat : Joueur vs "+opponent.name);

@@ -46,11 +46,19 @@ public abstract class Pochemon {
     }
 
     public void addExperience(int opponentLvl) {
-        experience = getXp(opponentLvl);
+        experience += getXp(opponentLvl);
     }
 
     public void levelUp() {
+        int oldLvl = lvl;
         lvl = level(experience);
+
+        if(oldLvl!=lvl) {
+            attack++;
+            defense++;
+            maxHP = maxHP(lvl);
+            this.heal();
+        }
     }
 
     public boolean isAlive() {
@@ -59,6 +67,10 @@ public abstract class Pochemon {
 
     public int getHP() {
         return HP;
+    }
+
+    public int getExperience() {
+        return experience;
     }
 
     public int getMaxHP() {
