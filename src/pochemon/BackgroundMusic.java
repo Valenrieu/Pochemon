@@ -7,11 +7,11 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-class BackgroundMusic {
+public class BackgroundMusic {
     private Clip clip;
     private String path = "../res/musics/";
 
-    BackgroundMusic(String name) {
+    public BackgroundMusic(String name) {
         this.loadFile(name);
     }
 
@@ -33,7 +33,7 @@ class BackgroundMusic {
         }
     }
 
-    void loop() {
+    public void loop() {
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 }
