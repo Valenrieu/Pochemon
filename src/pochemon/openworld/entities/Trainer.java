@@ -13,8 +13,8 @@ public class Trainer extends StaticCharacter implements Talkable {
     public final String name;
     public final Pochemon pochemon;
 
-    public Trainer(int x, int y, String name, Direction direction, Pochemon pochemon, Map map) {
-        super(map);
+    public Trainer(int x, int y, String name, Direction direction, Pochemon pochemon) {
+        super();
         this.x = x;
         this.y = y;
         this.name = name;

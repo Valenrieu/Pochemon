@@ -10,7 +10,11 @@ import pochemon.openworld.map.Map;
 public abstract class StaticCharacter extends Entity {
     protected Map map;
     
-    public StaticCharacter(Map map) {
+    public StaticCharacter() {
+        map = null;
+    }
+
+    public void addMap(Map map) {
         this.map = map;
     }
 

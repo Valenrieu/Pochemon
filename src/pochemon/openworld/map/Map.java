@@ -12,40 +12,47 @@ import pochemon.battle.objects.entities.*;
 
 public class Map {
     public GamePanel gamePanel;
-    public final PochemonList pochemonList = new PochemonList();
+    private static final String BASE_PATH = "../res/maps/";
+    private String path;
     public static final Tile[] tiles = new Tile[6];
-    public static final Tile[][] map = new Tile[69][69]; // A modifier en fonction
-                                                       // de la taille par defaut
-                                                       // des maps.
-    public static final Trainer[] trainers = new Trainer[4];
+    public final Tile[][] map = new Tile[69][69]; // A modifier en fonction
+                                                  // de la taille par defaut
+                                                  // des maps.
+    public final Trainer[] trainers = new Trainer[4];
+    private static final TrainerList trainerList = new TrainerList();
 
     public Map(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
+        path = BASE_PATH+"map1.txt";
         loadTiles();
         loadMap();
-        loadTrainers();
+        loadTrainers(trainerList.list);
     }
 
-    private void loadTrainers() {
-        trainers[0] = new Trainer(39, 58, "Christian", Direction.LEFT, pochemonList.list[1], this);
-        map[58][39] = tiles[5];
-
-        trainers[1] = new Trainer(48, 56, "Bruce", Direction.DOWN, pochemonList.list[2], this);
-        map[56][48] = tiles[5];
-
-        trainers[2] = new Trainer(23, 21, "Giovanni", Direction.DOWN, pochemonList.list[3], this);
-        map[21][23] = tiles[4];
-
-        trainers[3] = new Trainer(13, 31, "Sacha", Direction.RIGHT, pochemonList.list[4], this);
-        map[31][13] = tiles[5];
+    public Map(GamePanel gamePanel, String mapName) {
+        this.gamePanel = gamePanel;
+        path = BASE_PATH+mapName+".txt";
+        loadTiles();
+        loadMap();
+        loadTrainers(trainerList.list);
     }
 
-    private static void loadMap() {
+    private void loadTrainers(Trainer[] trainerList) {
+        for(int i=0; i<trainerList.length; i++) {
+            trainers[i] = trainerList[i];
+            trainers[i].addMap(this);
+            map[trainers[i].getY()][trainers[i].getX()] = tiles[5];
+        }
+    }
+
+    private void loadMap() {
+        Scanner scanner = null;
+
         try {
             int i=0;
             String line;
             String[] line1;
-            Scanner scanner = new Scanner(new File("../res/maps/map1.txt"));
+            scanner = new Scanner(new File(path));
 
             while(scanner.hasNextLine()) {
                 line = scanner.nextLine();
@@ -57,14 +64,15 @@ public class Map {
 
                 i++;
             }
-
-            scanner.close();
         } catch(IOException e) {
             System.out.println("res folder was altered.");
             System.exit(1);
         } catch(NumberFormatException e) {
-            System.out.println("res folder was altered.");
+            scanner.close();
+            System.out.println("Map file was altered.");
             System.exit(1);
+        } finally {
+            scanner.close();
         }
     }
 

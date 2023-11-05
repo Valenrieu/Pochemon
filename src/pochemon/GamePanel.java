@@ -3,6 +3,7 @@ package pochemon;
 import java.awt.*;
 import javax.swing.*;
 
+import pochemon.battle.objects.entities.PochemonList;
 import pochemon.openworld.entities.Player;
 import pochemon.openworld.map.Map;
 
@@ -18,10 +19,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     public static final int FPS = 30;
 
+    private static final PochemonList pochemonList = new PochemonList();
+
     Thread gameThread;
     KeyHandler keyHandler = new KeyHandler();
     public Map map = new Map(this);
-    public Player player = new Player(map.pochemonList.list[0], this, keyHandler);
+    public Player player = new Player(pochemonList.list[0], this, keyHandler);
 
     private BackgroundMusic music = new BackgroundMusic("schubert-liszt-serenade");
 
