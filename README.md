@@ -6,7 +6,7 @@ dans une map. Dans cette map, il y a plusieurs
 dresseurs que l'utilisateur peut affronter avec son ami 
 Pochechu. Pochechu est un pochemon de type chaleur très 
 puissant, il est au niveau 5 au début, l'utilisateur 
-peut l'améliorer en remportant des combats. L'objected 
+peut l'améliorer en remportant des combats. L'objectif 
 est d'entraîner son pochemon pour pouvoir battre le 
 meilleur dresseur, **Giovanni**.
 
@@ -67,14 +67,14 @@ les fichiers ***.class*** pour la JVM.
 ## Fonctionnement
 
 En mode libre, l'utilisateur peut utiliser les touches
-***Z, Q, S, D*** pour se déplacer dans le monde libre.
+***Z, Q, S, D*** pour se déplacer dans le monde.
 Une fois qu'il voit un dresseur, il peut intéragir avec
 lui, et lancer un combat en se mettant à côté de lui et
 en appuyant sur espace. Le combat se déroule, sur une
 nouvelle fenêtre qui reste au-dessus de toutes les
-et qu'on ne peut pas fermer. Une fois le combat fini,
-une image affichera le vainqueur et l'utilisateur sera
-en mesure de fermer la fenêtre et continuer dans le
+autres et qu'on ne peut pas fermer. Une fois le combat 
+fini, une image affichera le vainqueur et l'utilisateur 
+sera en mesure de fermer la fenêtre et continuer dans le
 monde libre.
 
 ## Dresseurs et pochemons
