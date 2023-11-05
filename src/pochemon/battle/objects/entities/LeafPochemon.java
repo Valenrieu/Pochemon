@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import static pochemon.battle.utils.StatsFunctions.damages;
 
-public class LeafPochemon extends Pochemon {
+public final class LeafPochemon extends Pochemon {
     public LeafPochemon(String name, int attack, int defense, BufferedImage frontSprite, BufferedImage backSprite) {
         super(name, attack, defense, frontSprite, backSprite);
     }

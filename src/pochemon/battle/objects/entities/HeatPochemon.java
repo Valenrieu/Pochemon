@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import static pochemon.battle.utils.StatsFunctions.damages;
 
-public class HeatPochemon extends Pochemon {
+public final class HeatPochemon extends Pochemon {
     public HeatPochemon(String name, int attack, int defense, BufferedImage frontSprite, BufferedImage backSprite) {
         super(name, attack, defense, frontSprite, backSprite);
     }

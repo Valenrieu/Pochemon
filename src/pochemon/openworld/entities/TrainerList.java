@@ -4,7 +4,7 @@ import pochemon.battle.objects.entities.PochemonList;
 
 // Liste de tous les adversaires crees.
 
-public class TrainerList {
+public final class TrainerList {
     private static final PochemonList pochemonList = new PochemonList();
     public static final Trainer[] list = new Trainer[4];
 
