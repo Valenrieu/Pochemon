@@ -89,25 +89,31 @@ public class Battle {
         player.pochemon.draw(g2, true);
         opponent.pochemon.draw(g2, false);
         this.addLabel(g2, 0, 0, 215, 4*12 + 2);
-        this.addLabel(g2, 275, battlePanel.screenHeight-(4*12 + 2), 215, 4*12 + 2);
+        this.addLabel(g2, 273, battlePanel.screenHeight-(4*12 + 3), 215, 4*12 + 2);
         this.writePochemonInfos(g2, opponent.pochemon, true);
         this.writePochemonInfos(g2, player.pochemon, false);
     }
 
     private void addLabel(Graphics2D g2, int x, int y, int width, int height) {
         g2.setColor(Color.WHITE);
-        g2.fillRoundRect(x, y, width, height, 0, 0);
+        g2.fillRoundRect(x, y, width, height, 15, 15);
+
+        g2.setColor(Color.BLACK);
+        g2.setStroke(new BasicStroke(1));
+        g2.drawRoundRect(x, y, width, height, 15, 15);
     }
 
     private void writePochemonInfos(Graphics2D g2, Pochemon pochemon, boolean isOpponent) {
         int fontSize = 12;
+        Font font = new Font("Arial", 1, fontSize);
+        FontMetrics metrics = g2.getFontMetrics(font);
         String type = "";
         String name = pochemon.name;
-        String lvl = Integer.toString(pochemon.getLvl());
+        String lvl = "Lv. "+pochemon.getLvl();
         String HPStatus = pochemon.getHP()+" / "+pochemon.getMaxHP()+" PV";
         String xp = pochemon.getExperience()+" XP";
         g2.setColor(Color.BLACK);
-        g2.setFont(new Font("Arial", 1, fontSize));
+        g2.setFont(font);
 
         if(pochemon instanceof HeatPochemon) {
             type = "Type chaleur";
@@ -117,32 +123,34 @@ public class Battle {
             type = "Type pluie";
         }
 
-        // Pour aligner le niveau a droite
+        // Aligner le niveau a droite
 
         do {
             name += " ";
 
-            if(((name.length()+lvl.length())*12)-2==215) {
+            if(metrics.stringWidth(name)+metrics.stringWidth(lvl)+8>=214) {
                 name += lvl;
                 break;
             }
-        } while(true);
+        } while(metrics.stringWidth(name)+metrics.stringWidth(lvl)<207);
 
         if(isOpponent) {
-            g2.drawString(name, 1, fontSize);
-            g2.drawString(type, 1, 2*fontSize);
-            g2.drawString(HPStatus, 1, 3*fontSize);
-            g2.drawString(xp, 1, 4*fontSize);
+            g2.drawString(name, 4, fontSize);
+            g2.drawString(type, 4, 2*fontSize);
+            g2.drawString(HPStatus, 4, 3*fontSize);
+            g2.drawString(xp, 4, 4*fontSize);
         } else {
-            g2.drawString(name, 276, battlePanel.screenHeight-(fontSize*4 + 2)+fontSize);
-            g2.drawString(type, 276, battlePanel.screenHeight-(fontSize*4 + 2)+2*fontSize);
-            g2.drawString(HPStatus, 276, battlePanel.screenHeight-(fontSize*4 + 2)+3*fontSize);
-            g2.drawString(xp, 276, battlePanel.screenHeight-(fontSize*4 + 2)+4*fontSize);
+            g2.drawString(name, 277, battlePanel.screenHeight-(fontSize*4 + 2)+fontSize);
+            g2.drawString(type, 277, battlePanel.screenHeight-(fontSize*4 + 2)+2*fontSize);
+            g2.drawString(HPStatus, 277, battlePanel.screenHeight-(fontSize*4 + 2)+3*fontSize);
+            g2.drawString(xp, 277, battlePanel.screenHeight-(fontSize*4 + 2)+4*fontSize);
         }
     }
 
     private void drawWinner(Graphics2D g2) {
-        int fontSize = 60, imageSize = 150;
+        int fontSize = 45, imageSize = 150;
+        Font font = new Font("Arial", 1, fontSize);
+        FontMetrics metrics = g2.getFontMetrics(font);
         String message = "";
         BufferedImage image = null;
         int x, y;
@@ -150,14 +158,14 @@ public class Battle {
         window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         if(winner instanceof Player) {
-            message = "Joueur a gagne";
+            message = "Vous avez gagne";
             image = ryanGosling;
         } else {
             message = opponent.name+" a gagne";
             image = opponentImage;
         }
 
-        x = (int)(battlePanel.screenWidth - message.length()*fontSize);
+        x = (int)((battlePanel.screenWidth - metrics.stringWidth(message))/2);
         y = (int)(battlePanel.screenHeight/3 - fontSize);
         middleY = (int)(BattlePanel.screenHeight/2 - imageSize/2);
         middleX = (int)(BattlePanel.screenWidth/2 - imageSize/2);
@@ -165,7 +173,7 @@ public class Battle {
         g2.drawImage(battlePanel.backgroundImage, 0, 0, battlePanel.screenWidth, battlePanel.screenHeight, null);
         this.addLabel(g2, 0, 0, battlePanel.screenWidth, battlePanel.screenHeight/3);
         g2.setColor(Color.BLACK);
-        g2.setFont(new Font("Arial", 1, fontSize));
+        g2.setFont(font);
         g2.drawString(message, x, y);
         g2.drawImage(image, middleX, middleY+25, imageSize, imageSize, null);
     }

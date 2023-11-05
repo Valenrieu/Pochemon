@@ -1,8 +1,9 @@
 package pochemon.battle.utils;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 public final class StatsFunctions {
+    private static final Random random = new Random();
     private static final int ATTACKS_POWER = 10;
 
     // Math.cbrt(x) : racine cubique de x
@@ -11,11 +12,14 @@ public final class StatsFunctions {
     }
 
     public static final int experience(int level) {
-        return (int)Math.ceil(level^3);
+        return (int)Math.ceil(Math.pow((double)level, 3));
     }
 
     public static final int damages(int level, int attack, int defense, double efficiency) {
-        double damageMultiplier = ThreadLocalRandom.current().nextDouble(0.85, 1);
+        double damageMultiplier = random.nextDouble();
+        damageMultiplier = 0.85 + (damageMultiplier*(1 - 0.85));
+        // Nombre aleatoire entre 0.85 et 1 inclus
+
         return (int)Math.floor((Math.floor(Math.floor(Math.floor(level*0.4 + 2)*
                     attack*ATTACKS_POWER/defense)/50)+2)*
                     efficiency*damageMultiplier);

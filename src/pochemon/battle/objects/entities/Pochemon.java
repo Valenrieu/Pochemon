@@ -2,7 +2,6 @@ package pochemon.battle.objects.entities;
 
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
-import java.util.Random;
 
 import pochemon.BattlePanel;
 import static pochemon.battle.utils.StatsFunctions.level;

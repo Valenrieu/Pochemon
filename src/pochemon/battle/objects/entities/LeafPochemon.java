@@ -15,11 +15,11 @@ public class LeafPochemon extends Pochemon {
 
     int getDamages(Pochemon pochemon) throws UnknownTypeException {
         if(pochemon instanceof RainPochemon) {
-            return damages(this.lvl, this.attack, this.defense, 2);
+            return damages(this.lvl, this.attack, pochemon.defense, 2);
         } else if(pochemon instanceof LeafPochemon) {
-            return damages(this.lvl, this.attack, this.defense, 1);
+            return damages(this.lvl, this.attack, pochemon.defense, 1);
         } else if(pochemon instanceof HeatPochemon) {
-            return damages(this.lvl, this.attack, this.defense, 0.5);
+            return damages(this.lvl, this.attack, pochemon.defense, 0.5);
         } else {
             throw new UnknownTypeException();
         }
