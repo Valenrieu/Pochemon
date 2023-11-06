@@ -28,12 +28,12 @@ public final class PochemonList {
         }
 
         // Pochemon du joueur
-        list[0] = new HeatPochemon("Pochechu", 15, 12, frontSprite, backSprite);
+        list[0] = new HeatPochemon("Pochechu", 14, 13, frontSprite, backSprite);
 
         // Pochemon des adversaires
-        list[1] = new LeafPochemon("Test", 11, 16, frontSprite, backSprite, 5);
-        list[2] = new RainPochemon("Test2", 20, 7, frontSprite, backSprite, 7);
-        list[3] = new HeatPochemon("Test3", 9, 18, frontSprite, backSprite, 10);
-        list[4] = new RainPochemon("Test4", 14, 13, frontSprite, backSprite, 15);
+        list[1] = new LeafPochemon("Tidzo", 14, 11, frontSprite, backSprite, 5);
+        list[2] = new RainPochemon("Yuhke", 15, 15, frontSprite, backSprite, 7);
+        list[3] = new HeatPochemon("Fevdos", 23, 22, frontSprite, backSprite, 10);
+        list[4] = new RainPochemon("Woleped", 24, 24, frontSprite, backSprite, 15);
     }
 }
