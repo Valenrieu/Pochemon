@@ -20,7 +20,7 @@ public final class StatsFunctions {
         damageMultiplier = 0.85 + (damageMultiplier*(1 - 0.85));
         // Nombre aleatoire entre 0.85 et 1 inclus
 
-        return (int)Math.floor((Math.floor(Math.floor(Math.floor(level*0.4 + 2)*
+        return (int)Math.ceil((Math.floor(Math.floor(Math.floor(level*0.4 + 2)*
                     attack*ATTACKS_POWER/defense)/50)+2)*
                     efficiency*damageMultiplier);
     }
