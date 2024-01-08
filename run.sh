@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 CLASSPATH=bin
 cd bin

@@ -26,13 +26,13 @@ Première utilisation :
 
 ```bash
 chmod u+x compile.sh run.sh
-./compile && ./run
+./compile.sh && ./run.sh
 ```
 
 Ensuite, il est possible de le lancer en utilisant seulement la commande :
 
 ```bash
-./run
+./run.sh
 ```
 
 ### Windows
